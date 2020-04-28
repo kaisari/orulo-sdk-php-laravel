@@ -2,14 +2,14 @@
 
 namespace Jetimob\Orulo\Lib\Http\Api\Lists;
 
-use Jetimob\Orulo\Lib\Http\Api\GetRequest;
+use Jetimob\Orulo\Lib\Http\Api\GetWClientAuth;
 
 /**
  * Class NeighborhoodListRequest
  * @package Jetimob\Orulo\Lib\Http\Api\Lists
  * @see http://api.orulo.com.br.s3-website-us-east-1.amazonaws.com/#operation/addresses
  */
-class NeighborhoodListRequest extends GetRequest
+class NeighborhoodListRequest extends GetWClientAuth
 {
     private string $state;
 
@@ -29,8 +29,7 @@ class NeighborhoodListRequest extends GetRequest
         $this->city = $city;
     }
 
-
-    protected function urn(): string
+    public function urn(): string
     {
         return 'addresses/areas';
     }

@@ -3,9 +3,7 @@
 namespace Jetimob\Orulo\Lib\Http;
 
 use Jetimob\Orulo\Lib\Http\Exception\MissingPropertyBodySchemaException;
-use Jetimob\Orulo\Lib\Reflect;
 use Jetimob\Orulo\Util\Log;
-use ReflectionProperty;
 
 abstract class Request
 {
@@ -25,13 +23,6 @@ abstract class Request
      * @var string
      */
     protected string $bodyType = BodyType::JSON;
-
-    /**
-     * Instructs the request to use, or not, the authorization bearer token.
-     *
-     * @var bool
-     */
-    protected bool $requiresAuthToken = true;
 
     /**
      * UNIX timestamp of the moment of the request.
@@ -60,20 +51,28 @@ abstract class Request
      * Every extending class MUST declare its method of request.
      * @return string
      */
-    abstract protected function method(): string;
+    abstract public function method(): string;
 
     /**
      * Every extending class MUST declare its urn.
      * @return string
      */
-    abstract protected function urn(): string;
+    abstract public function urn(): string;
+
+    /**
+     * Each request must specify its request authentication method.
+     * Return null if the request doesn't need authentication.
+     * @return int|null
+     * @see http://api.orulo.com.br.s3-website-us-east-1.amazonaws.com/#section/Autenticacao-e-Autorizacao
+     */
+    abstract public function authType(): ?int;
 
     /**
      * Returns the request HTTP method.
      *
      * @return string
      */
-    final public function getMethod(): string
+    public function getMethod(): string
     {
         return $this->method();
     }
@@ -83,7 +82,7 @@ abstract class Request
      *
      * @return string
      */
-    final public function getUrn(): string
+    public function getUrn(): string
     {
         $matches = [];
         $urn = $this->urn();
@@ -101,7 +100,7 @@ abstract class Request
     /**
      * @return string
      */
-    final public function getResponseClass(): string
+    public function getResponseClass(): string
     {
         return $this->responseClass;
     }
@@ -117,7 +116,7 @@ abstract class Request
     /**
      * @return string
      */
-    final public function getBodyType(): string
+    public function getBodyType(): string
     {
         return $this->bodyType;
     }
@@ -125,17 +124,9 @@ abstract class Request
     /**
      * @return int
      */
-    final public function getTimestamp(): int
+    public function getTimestamp(): int
     {
         return $this->timestamp;
-    }
-
-    /**
-     * @return bool
-     */
-    final public function requiresAuthToken(): bool
-    {
-        return $this->requiresAuthToken;
     }
 
     /**

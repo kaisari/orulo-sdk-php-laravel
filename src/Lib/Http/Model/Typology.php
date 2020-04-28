@@ -38,4 +38,6 @@ class Typology
 
     /** @var float $urban_land_tax "IPTU" value */
     public float $urban_land_tax;
+
+    public ?float $rental_price = null;
 }

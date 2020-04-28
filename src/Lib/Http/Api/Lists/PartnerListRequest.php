@@ -2,14 +2,14 @@
 
 namespace Jetimob\Orulo\Lib\Http\Api\Lists;
 
-use Jetimob\Orulo\Lib\Http\Api\GetRequest;
+use Jetimob\Orulo\Lib\Http\Api\GetWClientAuth;
 
 /**
  * Class PartnerListRequest
  * @package Jetimob\Orulo\Lib\Http\Api\Lists
  * @see http://api.orulo.com.br.s3-website-us-east-1.amazonaws.com/#operation/partners
  */
-class PartnerListRequest extends GetRequest
+class PartnerListRequest extends GetWClientAuth
 {
     private ?string $city;
 
@@ -56,7 +56,7 @@ class PartnerListRequest extends GetRequest
         $this->page = $page;
     }
 
-    protected function urn(): string
+    public function urn(): string
     {
         return 'partners';
     }

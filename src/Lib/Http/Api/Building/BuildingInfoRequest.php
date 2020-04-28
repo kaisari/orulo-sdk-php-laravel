@@ -2,14 +2,14 @@
 
 namespace Jetimob\Orulo\Lib\Http\Api\Building;
 
-use Jetimob\Orulo\Lib\Http\Api\GetRequest;
+use Jetimob\Orulo\Lib\Http\Api\GetWEndUserAuth;
 
 /**
  * Class BuildingInfoRequest
  * @package Jetimob\Orulo\Lib\Http\Api\Building
  * @see http://api.orulo.com.br.s3-website-us-east-1.amazonaws.com/#tag/Dados-do-Empreendimento
  */
-class BuildingInfoRequest extends GetRequest
+class BuildingInfoRequest extends GetWEndUserAuth
 {
     protected string $buildingId;
 
@@ -23,7 +23,7 @@ class BuildingInfoRequest extends GetRequest
         $this->buildingId = $buildingId;
     }
 
-    protected function urn(): string
+    public function urn(): string
     {
         return 'buildings/{buildingId}';
     }

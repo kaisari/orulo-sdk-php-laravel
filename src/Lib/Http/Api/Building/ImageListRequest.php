@@ -2,14 +2,14 @@
 
 namespace Jetimob\Orulo\Lib\Http\Api\Building;
 
-use Jetimob\Orulo\Lib\Http\Api\GetRequest;
+use Jetimob\Orulo\Lib\Http\Api\GetWClientAuth;
 
 /**
  * Class ImageListRequest
  * @package Jetimob\Orulo\Lib\Http\Api\Building
  * @see http://api.orulo.com.br.s3-website-us-east-1.amazonaws.com/#operation/images
  */
-class ImageListRequest extends GetRequest
+class ImageListRequest extends GetWClientAuth
 {
     protected string $buildingId;
 
@@ -28,8 +28,7 @@ class ImageListRequest extends GetRequest
         $this->dimensions = $dimensions;
     }
 
-
-    protected function urn(): string
+    public function urn(): string
     {
         return 'buildings/{buildingId}/images';
     }

@@ -12,9 +12,13 @@ use Jetimob\Orulo\Exception\ConfigurationException;
 use Jetimob\Orulo\Exception\EmptyResponseClassException;
 use Jetimob\Orulo\Exception\OruloException;
 use Jetimob\Orulo\Lib\Http\Api\ErrorResponse;
+use Jetimob\Orulo\Lib\Http\Auth\AuthType;
 use Jetimob\Orulo\Lib\Http\Auth\TokenRequest;
 use Jetimob\Orulo\Lib\Http\Auth\TokenResponse;
 use Jetimob\Orulo\Lib\Http\Exception\AuthorizationException;
+use Jetimob\Orulo\Lib\Http\Exception\MissingCodeException;
+use Jetimob\Orulo\Lib\Http\Exception\RequiresEndUserInteraction;
+use Jetimob\Orulo\Lib\Http\Exception\WrongAuthTypeException;
 use Jetimob\Orulo\Lib\Http\Exception\WrongRequestTypeException;
 use Jetimob\Orulo\Lib\Http\Exception\WrongResponseTypeException;
 use Jetimob\Orulo\Lib\Http\Request;
@@ -67,15 +71,19 @@ MSG,
     /**
      * @param Request|string $request
      * @param string $clientId
+     * @param string $clientSecret
      * @return Response
      * @throws AuthorizationException
      * @throws EmptyResponseClassException
      * @throws Lib\Http\Exception\MissingPropertyBodySchemaException
-     * @throws WrongResponseTypeException
-     * @throws WrongRequestTypeException
+     * @throws MissingCodeException
      * @throws OruloException
+     * @throws RequiresEndUserInteraction
+     * @throws WrongAuthTypeException
+     * @throws WrongRequestTypeException
+     * @throws WrongResponseTypeException
      */
-    public function request($request, ?string $clientId = null)
+    public function request($request, string $clientId, string $clientSecret)
     {
         if (is_string($request)) {
             $request = new $request();
@@ -93,9 +101,9 @@ MSG,
             $requestOptions[$request->getBodyType()] = $builtBody;
         }
 
-        if ($request->requiresAuthToken() && !is_null($clientId)) {
+        if (!is_null($request->authType()) && !is_null($clientId)) {
             $requestOptions[RequestOptions::HEADERS] = [
-                'Authorization' => "Bearer {$this->getAccessToken($clientId)}",
+                'Authorization' => "Bearer {$this->getAccessToken($clientId, $clientSecret, $request)}",
             ];
         }
 
@@ -127,8 +135,13 @@ MSG,
     }
 
     /**
-     * Returns an URL that you must redirect the end user to.
-     * This URL will ask for the user's permission so that we can use .... TODO
+     * Returns an URL that the end user must be redirect to.
+     *
+     * This URL will ask for the user's permission (OAuth) and if he/she authorizes the usage, he/she will be redirected
+     * to the 'redirect_uri' set in the configuration file. This URI must be registered through integracao@orulo.com.br.
+     *
+     * When the end user is redirected to the redirect_uri, there will be a query param named 'code' that will be used
+     * to obtain an access_code. This can be made manually or through the 'handleAuthorizationResponse' method.
      *
      * @return string
      * @see http://api.orulo.com.br.s3-website-us-east-1.amazonaws.com/#section/Autenticacao-e-Autorizacao/oruloEndUserAuth
@@ -143,14 +156,49 @@ MSG,
     }
 
     /**
+     * If there is a query param named 'code' in the request parameter, this function tries to exchange it to an access
+     * token.
+     *
+     * If succeeded, the access token will be stored and attributed into the authorizationToken property.
+     *
      * @param \Illuminate\Http\Request $request
+     * @param string $clientId
+     * @param string $clientSecret
+     * @return Response
      * @throws AuthorizationException
+     * @throws EmptyResponseClassException
+     * @throws Lib\Http\Exception\MissingPropertyBodySchemaException
+     * @throws MissingCodeException
+     * @throws OruloException
+     * @throws RequiresEndUserInteraction
+     * @throws WrongAuthTypeException
+     * @throws WrongRequestTypeException
+     * @throws WrongResponseTypeException
      */
-    public function handleAuthorizationResponse(\Illuminate\Http\Request $request)
+    public function handleAuthorizationResponse(
+        \Illuminate\Http\Request $request,
+        string $clientId,
+        string $clientSecret): Response
     {
-        if (!$request->has('params')) {
+        if (!$request->has('code')) {
             throw new AuthorizationException('missing required \'code\' param from request');
         }
+
+        $response = $this->requestAndStoreToken(
+            AuthType::ORULO_END_USER_AUTH,
+            $clientId,
+            $clientSecret,
+            $request->get('code'),
+        );
+
+        if ($response->failed()) {
+            return $response;
+        }
+
+        /** @var TokenResponse $response */
+        $this->authorizationToken = $response;
+
+        return $response;
     }
 
     /**
@@ -170,51 +218,104 @@ MSG,
      * token generation endpoint.
      *
      * @param string $clientId
+     * @param string $clientSecret
+     * @param Request $request
+     * @return Response
+     * @throws AuthorizationException
+     * @throws EmptyResponseClassException
+     * @throws Lib\Http\Exception\MissingPropertyBodySchemaException
+     * @throws MissingCodeException
+     * @throws OruloException
+     * @throws RequiresEndUserInteraction
+     * @throws WrongAuthTypeException
+     * @throws WrongRequestTypeException
+     * @throws WrongResponseTypeException
+     */
+    private function retrieveAccessToken(string $clientId, string $clientSecret, Request $request): Response
+    {
+        $cached = Cache::get($this->getCacheKey($clientId));
+
+        if (!is_null($cached)) {
+            /** @var TokenResponse $cached */
+            if ($cached->getAuthType() !== $request->authType()) {
+                throw new WrongAuthTypeException();
+            }
+
+            return $cached;
+        }
+
+        if ($request->authType() & AuthType::ORULO_END_USER_AUTH && !($request instanceof TokenRequest)) {
+            throw new RequiresEndUserInteraction();
+        }
+
+        return $this->requestAndStoreToken($request->authType(), $clientId, $clientSecret);
+    }
+
+    /**
+     * @param int $authType
+     * @param string $clientId
+     * @param string $clientSecret
+     * @param string|null $code
      * @return Response
      * @throws AuthorizationException
      * @throws EmptyResponseClassException
      * @throws Lib\Http\Exception\MissingPropertyBodySchemaException
      * @throws OruloException
-     * @throws WrongResponseTypeException
+     * @throws RequiresEndUserInteraction
+     * @throws WrongAuthTypeException
      * @throws WrongRequestTypeException
+     * @throws WrongResponseTypeException
+     * @throws MissingCodeException
      */
-    private function retrieveAccessToken(string $clientId): Response
+    private function requestAndStoreToken(
+        int $authType,
+        string $clientId,
+        string $clientSecret,
+        ?string $code = null
+    ): Response
     {
-        $cached = Cache::get($this->getCacheKey($clientId));
-
-        if (!is_null($cached)) {
-            return $cached;
+        if ($authType & AuthType::ORULO_END_USER_AUTH && is_null($code)) {
+            throw new MissingCodeException();
         }
 
         /** @var TokenResponse $response */
-        $response = $this->request(TokenRequest::class, $clientId);
+        $response = $this->request(new TokenRequest($clientId, $clientSecret, $code), $clientId, $clientSecret);
 
         if ($response->failed()) {
             return $response;
         }
 
+        $response->setAuthType($authType);
         Cache::put($this->getCacheKey($clientId), $response, now()->addSeconds($response->getExpiresIn()));
         return $response;
     }
 
     /**
      * @param string $clientId
+     * @param string $clientSecret
+     * @param Request $request
      * @return string
      * @throws AuthorizationException
      * @throws EmptyResponseClassException
      * @throws Lib\Http\Exception\MissingPropertyBodySchemaException
+     * @throws MissingCodeException
      * @throws OruloException
-     * @throws WrongResponseTypeException
+     * @throws RequiresEndUserInteraction
+     * @throws WrongAuthTypeException
      * @throws WrongRequestTypeException
+     * @throws WrongResponseTypeException
      */
-    private function getAccessToken(string $clientId): string
+    private function getAccessToken(string $clientId, string $clientSecret, Request $request): string
     {
-        if (!is_null($this->authorizationToken)) {
+        if (
+            !is_null($this->authorizationToken)
+            && $this->authorizationToken->getAuthType() === $request->authType()
+        ) {
             return $this->authorizationToken->getAccessToken();
         }
 
         /** @var TokenResponse $token */
-        $token = $this->retrieveAccessToken($clientId);
+        $token = $this->retrieveAccessToken($clientId, $clientSecret, $request);
 
         if ($token->failed()) {
             throw new AuthorizationException('token retrieval failed');
@@ -224,7 +325,7 @@ MSG,
 
         if ($this->isAccessTokenValid()) {
             Cache::forget($this->getCacheKey($clientId));
-            return $this->getAccessToken($clientId);
+            return $this->getAccessToken($clientId, $clientSecret, $request);
         }
 
         return $this->authorizationToken->getAccessToken();

@@ -22,6 +22,8 @@ class TokenResponse extends Response implements Serializable
 
     protected int $created_at;
 
+    protected ?int $authType;
+
     /**
      * @return string
      */
@@ -71,6 +73,22 @@ class TokenResponse extends Response implements Serializable
     }
 
     /**
+     * @return int|null
+     */
+    public function getAuthType(): ?int
+    {
+        return $this->authType;
+    }
+
+    /**
+     * @param int|null $authType
+     */
+    public function setAuthType(?int $authType): void
+    {
+        $this->authType = $authType;
+    }
+
+    /**
      * @inheritDoc
      */
     public function serialize(): string
@@ -81,6 +99,7 @@ class TokenResponse extends Response implements Serializable
             $this->expires_in,
             $this->scope,
             $this->created_at,
+            $this->authType,
             $this->getTimestamp(),
             $this->getStatusCode(),
         ]);
@@ -97,6 +116,7 @@ class TokenResponse extends Response implements Serializable
             $this->expires_in,
             $this->scope,
             $this->created_at,
+            $this->authType,
             $timestamp,
             $statusCode,
         ) = unserialize($serialized);

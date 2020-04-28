@@ -2,14 +2,14 @@
 
 namespace Jetimob\Orulo\Lib\Http\Api\Lists;
 
-use Jetimob\Orulo\Lib\Http\Api\GetRequest;
+use Jetimob\Orulo\Lib\Http\Api\GetWClientAuth;
 
 /**
  * Class BuildingByNameRequest
  * @package Jetimob\Orulo\Lib\Http\Api\Lists
  * @see http://api.orulo.com.br.s3-website-us-east-1.amazonaws.com/#operation/buildingNameSearch
  */
-class BuildingByNameRequest extends GetRequest
+class BuildingByNameRequest extends GetWClientAuth
 {
     /**
      * Building partial or full name. At least 3 chars. Case and punctuation insensitive.
@@ -37,7 +37,7 @@ class BuildingByNameRequest extends GetRequest
         $this->max_results = $maxResults;
     }
 
-    protected function urn(): string
+    public function urn(): string
     {
         return 'buildings/name/search';
     }

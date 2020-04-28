@@ -2,14 +2,14 @@
 
 namespace Jetimob\Orulo\Lib\Http\Api\Building;
 
-use Jetimob\Orulo\Lib\Http\Api\GetRequest;
+use Jetimob\Orulo\Lib\Http\Api\GetWClientAuth;
 
 /**
  * Class FloorPlansListRequest
  * @package Jetimob\Orulo\Lib\Http\Api\Building
  * @see http://api.orulo.com.br.s3-website-us-east-1.amazonaws.com/#operation/floorPlans
  */
-class FloorPlansListRequest extends GetRequest
+class FloorPlansListRequest extends GetWClientAuth
 {
     protected string $buildingId;
 
@@ -28,7 +28,7 @@ class FloorPlansListRequest extends GetRequest
         $this->dimensions = $dimensions;
     }
 
-    protected function urn(): string
+    public function urn(): string
     {
         return 'buildings/{buildingId}/floor_plans';
     }

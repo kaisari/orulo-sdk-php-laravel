@@ -2,14 +2,14 @@
 
 namespace Jetimob\Orulo\Lib\Http\Api\Building;
 
-use Jetimob\Orulo\Lib\Http\Api\GetRequest;
+use Jetimob\Orulo\Lib\Http\Api\GetWEndUserAuth;
 
 /**
  * Class CommercialContactListRequest
  * @package Jetimob\Orulo\Lib\Http\Api\Building
  * @see http://api.orulo.com.br.s3-website-us-east-1.amazonaws.com/#operation/contacts
  */
-class CommercialContactRequest extends GetRequest
+class CommercialContactRequest extends GetWEndUserAuth
 {
     protected string $buildingId;
 
@@ -27,7 +27,7 @@ class CommercialContactRequest extends GetRequest
         $this->contactId = $contactId;
     }
 
-    protected function urn(): string
+    public function urn(): string
     {
         return 'buildings/{buildingId}/commercial_contacts/{contactId}';
     }

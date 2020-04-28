@@ -17,31 +17,33 @@ class TokenRequest extends Request
 
     protected string $client_secret;
 
+    protected ?string $code;
+
     protected string $grant_type = 'client_credentials';
 
-    protected array $bodySchema = ['client_id', 'client_secret', 'grant_type'];
+    protected array $bodySchema = ['client_id', 'client_secret', 'grant_type', 'code'];
 
     protected string $bodyType = BodyType::FORM_PARAMS;
-
-    protected bool $requiresAuthToken = false;
 
     /**
      * TokenRequest constructor.
      *
-     * @param string $clientBuildingId
+     * @param string $clientId
      * @param string $clientSecret
+     * @param string|null $code
      */
-    public function __construct(string $clientBuildingId, string $clientSecret)
+    public function __construct(string $clientId, string $clientSecret, ?string $code = null)
     {
         parent::__construct();
-        $this->client_id = $clientBuildingId;
+        $this->client_id = $clientId;
         $this->client_secret = $clientSecret;
+        $this->code = $code;
     }
 
     /**
      * @inheritDoc
      */
-    protected function method(): string
+    public function method(): string
     {
         return Method::POST;
     }
@@ -49,8 +51,13 @@ class TokenRequest extends Request
     /**
      * @inheritDoc
      */
-    protected function urn(): string
+    public function urn(): string
     {
         return 'https://www.orulo.com.br/oauth/token';
+    }
+
+    public function authType(): ?int
+    {
+        return null;
     }
 }

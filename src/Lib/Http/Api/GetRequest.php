@@ -7,7 +7,7 @@ use Jetimob\Orulo\Lib\Http\Request;
 
 abstract class GetRequest extends Request
 {
-    protected function method(): string
+    public function method(): string
     {
         return Method::GET;
     }
