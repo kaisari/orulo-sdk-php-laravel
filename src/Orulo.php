@@ -207,7 +207,7 @@ MSG,
      * @param string $clientId
      * @return string
      */
-    private function getCacheKey(string $clientId): string
+    public function getCacheKey(string $clientId): string
     {
         return sprintf('ORULO:CID:%s', $clientId);
     }
