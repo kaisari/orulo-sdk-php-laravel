@@ -11,7 +11,7 @@ use Jetimob\Orulo\Lib\Http\Api\GetWClientAuth;
  */
 class CityListRequest extends GetWClientAuth
 {
-    private string $state;
+    protected string $state;
 
     protected array $bodySchema = ['state'];
 

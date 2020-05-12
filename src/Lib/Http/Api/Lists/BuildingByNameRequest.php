@@ -15,13 +15,13 @@ class BuildingByNameRequest extends GetWClientAuth
      * Building partial or full name. At least 3 chars. Case and punctuation insensitive.
      * @var string $name
      */
-    private string $name;
+    protected string $name;
 
     /**
      * Default is set to 10, max is 20.
      * @var int $max_results
      */
-    private int $max_results;
+    protected int $max_results;
 
     protected array $bodySchema = ['name', 'max_results'];
 

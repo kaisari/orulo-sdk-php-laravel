@@ -50,7 +50,10 @@ class ListTestCase extends TestCase
 
     public function testPartnerList()
     {
-        $this->makeAndAssert(new PartnerListRequest('Cachoeirinha', 'RS'));
+        $this->makeAndAssert(new PartnerListRequest(
+            'Cachoeirinha',
+            'RS',
+        ));
     }
 
     public function testBuildingListRequest()

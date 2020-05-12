@@ -11,9 +11,9 @@ use Jetimob\Orulo\Lib\Http\Api\GetWClientAuth;
  */
 class NeighborhoodListRequest extends GetWClientAuth
 {
-    private string $state;
+    protected string $state;
 
-    private string $city;
+    protected string $city;
 
     protected array $bodySchema = ['state', 'city'];
 

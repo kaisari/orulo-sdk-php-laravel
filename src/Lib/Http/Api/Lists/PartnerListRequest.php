@@ -11,19 +11,19 @@ use Jetimob\Orulo\Lib\Http\Api\GetWClientAuth;
  */
 class PartnerListRequest extends GetWClientAuth
 {
-    private ?string $city;
+    protected ?string $city;
 
-    private ?string $state;
+    protected ?string $state;
 
-    private ?string $type;
+    protected ?string $type;
 
-    private ?string $role;
+    protected ?string $role;
 
-    private ?string $updated_after;
+    protected ?string $updated_after;
 
-    private int $results_per_page;
+    protected int $results_per_page;
 
-    private int $page;
+    protected int $page;
 
     protected array $bodySchema = ['city', 'state', 'type', 'role', 'updated_after', 'results_per_page', 'page'];
 

@@ -45,8 +45,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function makeToken(): TokenResponse
     {
-        return TokenResponse::build(
-        );
+        return TokenResponse::build();
     }
 
     /**
@@ -55,7 +54,10 @@ class TestCase extends \Orchestra\Testbench\TestCase
      */
     protected function makeBaseRequest($request)
     {
-        return Orulo::useAuthorizationToken($this->makeToken())->request($request, Orulo::getConfig('client_id'));
+        return Orulo::/*useAuthorizationToken($this->makeToken())->*/request(
+            $request, Orulo::getConfig('client_id'),
+            Orulo::getConfig('client_secret'),
+        );
     }
 
     /**

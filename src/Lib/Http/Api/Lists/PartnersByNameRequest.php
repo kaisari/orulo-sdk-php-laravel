@@ -15,32 +15,32 @@ class PartnersByNameRequest extends GetWClientAuth
      * Partial or full partner name. At least 3 chars. Punctuation and case insensitive.
      * @var string $name
      */
-    private string $name;
+    protected string $name;
 
     /**
      * Enum: developer | commercial_partner
      * Filters the partner by its role.
      * @var string $role
      */
-    private ?string $role;
+    protected ?string $role;
 
     /**
      * Required only if a city is defined.
      * @var string|null $state
      */
-    private ?string $state;
+    protected ?string $state;
 
     /**
      * If city is set, state is required.
      * @var string|null $city
      */
-    private ?string $city;
+    protected ?string $city;
 
     /**
      * Default is set to 10, max is 20.
      * @var int $max_results
      */
-    private int $max_results;
+    protected int $max_results;
 
     protected array $bodySchema = ['name', 'role', 'state', 'city', 'max_results'];
 
