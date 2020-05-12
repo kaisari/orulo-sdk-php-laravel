@@ -25,7 +25,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Jetimob\\Orulo\\Tests\\": "tests"
+            "Jetimob\\Orulo\\Test\\": "tests"
         }
     },
     "extra": {
@@ -34,7 +34,7 @@
                 "Jetimob\\Orulo\\OruloServiceProvider"
             ],
             "aliases": {
-                "Orulo": "Jetimob\\Orulo\\Facades\\Orulo"
+                "Orulo": "Jetimob\\Orulo\\Facade\\Orulo"
             }
         }
     }
