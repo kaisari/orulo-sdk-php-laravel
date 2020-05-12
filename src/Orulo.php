@@ -36,7 +36,7 @@ class Orulo
 
     private array $guzzleOptions;
 
-    private TokenResponse $authorizationToken;
+    private ?TokenResponse $authorizationToken = null;
 
     private Client $apiClient;
 
