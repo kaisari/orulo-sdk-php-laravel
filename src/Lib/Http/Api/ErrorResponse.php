@@ -8,8 +8,7 @@ class ErrorResponse extends Response
 {
     protected string $error;
 
-    protected string $error_description;
-
+    protected string $error_message;
     /**
      * @return string
      */
@@ -23,6 +22,6 @@ class ErrorResponse extends Response
      */
     public function getErrorDescription(): string
     {
-        return $this->error_description ?? \Illuminate\Http\Response::$statusTexts[$this->getStatusCode()];
+        return $this->error_message ?? \Illuminate\Http\Response::$statusTexts[$this->getStatusCode()];
     }
 }

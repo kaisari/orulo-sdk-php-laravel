@@ -60,6 +60,7 @@ class ListTestCase extends TestCase
     {
         $request = new BuildingListRequest();
         $request->setState('SP');
+        $request->setPage("2");
 
         /** @var BuildingListResponse $response */
         $response = $this->makeAndAssert($request);
