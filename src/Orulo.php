@@ -209,11 +209,12 @@ MSG,
      * Returns the cache key used to retrieve a stored authorization response
      *
      * @param string $clientId
+     * @param int $authType
      * @return string
      */
-    public function getCacheKey(string $clientId): string
+    public function getCacheKey(string $clientId, int $authType): string
     {
-        return sprintf('ORULO:CID:%s', $clientId);
+        return sprintf('ORULO:%d:%s', $authType, $clientId);
     }
 
     /**
@@ -237,7 +238,7 @@ MSG,
      */
     private function retrieveAccessToken(string $clientId, string $clientSecret, Request $request): Response
     {
-        $cached = Cache::get($this->getCacheKey($clientId));
+        $cached = Cache::get($this->getCacheKey($clientId, $request->authType()));
 
         if (!is_null($cached)) {
             /** @var TokenResponse $cached */
@@ -278,7 +279,7 @@ MSG,
         ?string $code = null
     ): Response
     {
-        if ($authType & AuthType::ORULO_END_USER_AUTH && is_null($code)) {
+        if ($authType & AuthType::ORULO_END_USER_AUTH && empty($code)) {
             throw new MissingCodeException();
         }
 
@@ -290,7 +291,7 @@ MSG,
         }
 
         $response->setAuthType($authType);
-        Cache::put($this->getCacheKey($clientId), $response, now()->addSeconds($response->getExpiresIn()));
+        Cache::put($this->getCacheKey($clientId, $authType), $response, now()->addSeconds($response->getExpiresIn()));
         return $response;
     }
 
@@ -328,7 +329,7 @@ MSG,
         $this->authorizationToken = $token;
 
         if ($this->isAccessTokenValid()) {
-            Cache::forget($this->getCacheKey($clientId));
+            Cache::forget($this->getCacheKey($clientId, $token->getAuthType()));
             return $this->getAccessToken($clientId, $clientSecret, $request);
         }
 

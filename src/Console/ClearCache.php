@@ -5,6 +5,7 @@ namespace Jetimob\Orulo\Console;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
 use Jetimob\Orulo\Facade\Orulo;
+use Jetimob\Orulo\Lib\Http\Auth\AuthType;
 
 class ClearCache extends Command
 {
@@ -21,7 +22,9 @@ class ClearCache extends Command
             return;
         }
 
-        Cache::forget(Orulo::getCacheKey($clientId));
-        $this->info(sprintf('Cleared authorization key for clientId %s', $clientId));
+        Cache::forget(Orulo::getCacheKey($clientId, AuthType::ORULO_CLIENT_AUTH));
+        Cache::forget(Orulo::getCacheKey($clientId, AuthType::ORULO_END_USER_AUTH));
+
+        $this->info(sprintf('Cleared authorization keys for clientId %s', $clientId));
     }
 }
