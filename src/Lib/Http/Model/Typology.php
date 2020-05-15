@@ -32,12 +32,12 @@ class Typology
     public int $parking;
 
     /** @var string $solar_position Enum: "Norte" | "Sul" | "Leste" | "Oeste" */
-    public string $solar_position;
+    public ?string $solar_position = null;
 
-    public float $condominium_value;
+    public ?float $condominium_value = null;
 
     /** @var float $urban_land_tax "IPTU" value */
-    public float $urban_land_tax;
+    public ?float $urban_land_tax = null;
 
     public ?float $rental_price = null;
 }
