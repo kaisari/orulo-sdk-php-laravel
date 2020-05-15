@@ -2,8 +2,13 @@
 
 namespace Jetimob\Orulo\Lib\Http\Exception;
 
-use Exception;
+use Jetimob\Orulo\Exception\OruloException;
 
-class HttpException extends Exception
+/**
+ * Class HttpException
+ *
+ * @package Jetimob\Orulo\Lib\Http\Exception
+ */
+class HttpException extends OruloException
 {
 }

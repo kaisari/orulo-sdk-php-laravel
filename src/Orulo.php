@@ -48,6 +48,7 @@ class Orulo
     public function __construct(array $config = [])
     {
         $this->config = $config;
+        /** @noinspection PhpFieldAssignmentTypeMismatchInspection */
         $this->guzzleOptions = $this->getConfig('guzzle', []);
 
         foreach (self::CONFIG_FILE_REQUIRED_KEYS as $key) {
@@ -65,6 +66,7 @@ MSG,
         }
 
         $this->apiClient = new Client($this->guzzleOptions);
+        /** @noinspection PhpFieldAssignmentTypeMismatchInspection */
         Log::$enabled = $this->getConfig('logging', false);
     }
 
@@ -116,7 +118,7 @@ MSG,
             }
 
             if (!method_exists($responseClassName, 'deserialize')) {
-                throw new WrongResponseTypeException();
+                throw new WrongResponseTypeException(get_class($request));
             }
 
             /** @var Response $oruloResponse */
@@ -145,6 +147,7 @@ MSG,
      *
      * @return string
      * @see http://api.orulo.com.br.s3-website-us-east-1.amazonaws.com/#section/Autenticacao-e-Autorizacao/oruloEndUserAuth
+     * @noinspection PhpUnused
      */
     public function makeAuthorizationUrl(): string
     {
@@ -164,7 +167,7 @@ MSG,
      * @param \Illuminate\Http\Request $request
      * @param string $clientId
      * @param string $clientSecret
-     * @return Response
+     * @return TokenResponse|ErrorResponse
      * @throws AuthorizationException
      * @throws EmptyResponseClassException
      * @throws Lib\Http\Exception\MissingPropertyBodySchemaException
@@ -174,6 +177,7 @@ MSG,
      * @throws WrongAuthTypeException
      * @throws WrongRequestTypeException
      * @throws WrongResponseTypeException
+     * @noinspection PhpUnused
      */
     public function handleAuthorizationResponse(
         \Illuminate\Http\Request $request,
@@ -181,7 +185,7 @@ MSG,
         string $clientSecret): Response
     {
         if (!$request->has('code')) {
-            throw new AuthorizationException('missing required \'code\' param from request');
+            throw new MissingCodeException();
         }
 
         $response = $this->requestAndStoreToken(
@@ -238,7 +242,7 @@ MSG,
         if (!is_null($cached)) {
             /** @var TokenResponse $cached */
             if ($cached->getAuthType() !== $request->authType()) {
-                throw new WrongAuthTypeException();
+                throw new WrongAuthTypeException($request->authType(), $cached->getAuthType());
             }
 
             return $cached;
@@ -318,7 +322,7 @@ MSG,
         $token = $this->retrieveAccessToken($clientId, $clientSecret, $request);
 
         if ($token->failed()) {
-            throw new AuthorizationException('token retrieval failed');
+            throw new AuthorizationException();
         }
 
         $this->authorizationToken = $token;
@@ -357,6 +361,15 @@ MSG,
         return array_key_exists($key, $this->config) ? $this->config[$key] : $default;
     }
 
+    /**
+     * Use this function to override the access token to use in the request.
+     * This function is only used in tests because the access token lifecycle is handled by the SDK.
+     * I.e.: the credentials are automatically injected in the request when needed.
+     *
+     * @param TokenResponse $authorizationToken
+     * @return $this
+     * @noinspection PhpUnused
+     */
     public function useAuthorizationToken(TokenResponse $authorizationToken): self
     {
         $this->authorizationToken = $authorizationToken;
