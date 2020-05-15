@@ -26,6 +26,12 @@ class BuildingListRequest extends GetWClientAuth
 
     protected int $location_radius;
 
+    protected string $page = "1";
+
+    protected string $results_per_page = "10";
+
+    protected array $bodySchema = ['city', 'state', 'developer_id', 'commercial_partner_id', 'updated_after', 'current_location', 'location_radius', 'page', 'results_per_page'];
+
     public function urn(): string
     {
         return 'buildings';
@@ -85,6 +91,22 @@ class BuildingListRequest extends GetWClientAuth
     public function getLocationRadius(): int
     {
         return $this->location_radius;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPage(): int
+    {
+        return $this->page;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResultsPerPage(): string
+    {
+        return $this->results_per_page;
     }
 
     /**
@@ -156,4 +178,25 @@ class BuildingListRequest extends GetWClientAuth
         $this->location_radius = $location_radius;
         return $this;
     }
+
+    /**
+     * @param string $page
+     * @return BuildingListRequest
+     */
+    public function setPage(string $page): BuildingListRequest
+    {
+        $this->page = $page;
+        return $this;
+    }
+
+    /**
+     * @param string $results_per_page
+     * @return BuildingListRequest
+     */
+    public function setResultsPerPage(string $results_per_page): BuildingListRequest
+    {
+        $this->results_per_page = $results_per_page;
+        return $this;
+    }
+
 }
