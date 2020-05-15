@@ -328,7 +328,7 @@ MSG,
 
         $this->authorizationToken = $token;
 
-        if ($this->isAccessTokenValid()) {
+        if (!$this->isAccessTokenValid()) {
             Cache::forget($this->getCacheKey($clientId, $token->getAuthType()));
             return $this->getAccessToken($clientId, $clientSecret, $request);
         }
