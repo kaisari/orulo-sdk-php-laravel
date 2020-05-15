@@ -8,7 +8,23 @@ class Location
 {
     use Serializable;
 
-    public float $latitude;
+    protected float $latitude;
 
-    public float $longitude;
+    protected float $longitude;
+
+    /**
+     * @return float
+     */
+    public function getLatitude(): ?float
+    {
+        return $this->latitude ?? null;
+    }
+
+    /**
+     * @return float
+     */
+    public function getLongitude(): ?float
+    {
+        return $this->longitude ?? null;
+    }
 }

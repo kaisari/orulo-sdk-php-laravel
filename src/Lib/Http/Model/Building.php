@@ -8,9 +8,33 @@ class Building
 {
     use Serializable;
 
-    public string $id;
+    protected string $id;
 
-    public string $name;
+    protected string $name;
 
-    public Developer $developer;
+    protected Developer $developer;
+
+    /**
+     * @return string
+     */
+    public function getId(): ?string
+    {
+        return $this->id ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): ?string
+    {
+        return $this->name ?? null;
+    }
+
+    /**
+     * @return Developer
+     */
+    public function getDeveloper(): ?Developer
+    {
+        return $this->developer ?? null;
+    }
 }

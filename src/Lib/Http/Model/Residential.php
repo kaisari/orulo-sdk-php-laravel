@@ -8,27 +8,123 @@ class Residential
 {
     use Serializable;
 
-    public string $apartments;
+    protected string $apartments;
 
-    public string $house;
+    protected string $house;
 
-    public string $condominium_house;
+    protected string $condominium_house;
 
-    public string $penthouse_duplex;
+    protected string $penthouse_duplex;
 
-    public string $penthouse;
+    protected string $penthouse;
 
-    public string $duplex;
+    protected string $duplex;
 
-    public string $farm;
+    protected string $farm;
 
-    public string $garden;
+    protected string $garden;
 
-    public string $loft;
+    protected string $loft;
 
-    public string $land_or_residential_lots;
+    protected string $land_or_residential_lots;
 
-    public string $triplex;
+    protected string $triplex;
 
-    public string $studio;
+    protected string $studio;
+
+    /**
+     * @return string
+     */
+    public function getApartments(): ?string
+    {
+        return $this->apartments ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHouse(): ?string
+    {
+        return $this->house ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCondominiumHouse(): ?string
+    {
+        return $this->condominium_house ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPenthouseDuplex(): ?string
+    {
+        return $this->penthouse_duplex ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPenthouse(): ?string
+    {
+        return $this->penthouse ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDuplex(): ?string
+    {
+        return $this->duplex ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFarm(): ?string
+    {
+        return $this->farm ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGarden(): ?string
+    {
+        return $this->garden ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLoft(): ?string
+    {
+        return $this->loft ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLandOrResidentialLots(): ?string
+    {
+        return $this->land_or_residential_lots ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTriplex(): ?string
+    {
+        return $this->triplex ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStudio(): ?string
+    {
+        return $this->studio ?? null;
+    }
 }

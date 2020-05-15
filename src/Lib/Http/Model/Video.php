@@ -8,12 +8,44 @@ class Video
 {
     use Serializable;
 
-    public string $id;
+    protected string $id;
 
-    public string $url;
+    protected string $url;
 
     /** @var string $source Enum: "youtube" | "vimeo */
-    public string $source;
+    protected string $source;
 
-    public string $description;
+    protected string $description;
+
+    /**
+     * @return string
+     */
+    public function getId(): ?string
+    {
+        return $this->id ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl(): ?string
+    {
+        return $this->url ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSource(): ?string
+    {
+        return $this->source ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description ?? null;
+    }
 }

@@ -8,21 +8,93 @@ class Address
 {
     use Serializable;
 
-    public string $street_type;
+    protected string $street_type;
 
-    public string $street;
+    protected string $street;
 
-    public int $number;
+    protected int $number;
 
-    public string $area;
+    protected string $area;
 
-    public string $city;
+    protected string $city;
 
-    public string $state;
+    protected string $state;
 
-    public string $zip_code;
+    protected string $zip_code;
 
-    public float $latitude;
+    protected float $latitude;
 
-    public float $longitude;
+    protected float $longitude;
+
+    /**
+     * @return string
+     */
+    public function getStreetType(): ?string
+    {
+        return $this->street_type ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStreet(): ?string
+    {
+        return $this->street ?? null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumber(): ?int
+    {
+        return $this->number ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getArea(): ?string
+    {
+        return $this->area ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCity(): ?string
+    {
+        return $this->city ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getState(): ?string
+    {
+        return $this->state ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getZipCode(): ?string
+    {
+        return $this->zip_code ?? null;
+    }
+
+    /**
+     * @return float
+     */
+    public function getLatitude(): ?float
+    {
+        return $this->latitude ?? null;
+    }
+
+    /**
+     * @return float
+     */
+    public function getLongitude(): ?float
+    {
+        return $this->longitude ?? null;
+    }
 }

@@ -8,36 +8,148 @@ class Typology
 {
     use Serializable;
 
-    public string $id;
+    protected string $id;
 
     /** @var string $type Enum: "Apartamento" | "Casa" | "Casa em Condomínio" | "Cobertura Duplex" | "Cobertura Horizontal" | "Duplex" | "Edifício Comercial" | "Fazenda/Sítio" | "Galpão/Pavilhão" | "Garden" | "Loft" | "Loja" | "Sala" | "Sala com Área Ext." | "Studio" | "Terreno/Lote Comercial" | "Terreno/Lote Residencial" | "Triplex"*/
-    public string $type;
+    protected string $type;
 
-    public float $original_price;
+    protected float $original_price;
 
     /** @var float $discount_price price with applied discount (if available) */
-    public float $discount_price;
+    protected float $discount_price;
 
-    public float $private_area;
+    protected float $private_area;
 
-    public float $total_area;
+    protected float $total_area;
 
-    public int $bedrooms;
+    protected int $bedrooms;
 
-    public int $bathrooms;
+    protected int $bathrooms;
 
-    public int $suites;
+    protected int $suites;
 
     /** @var int $parking amount of available parking spots */
-    public int $parking;
+    protected int $parking;
 
     /** @var string $solar_position Enum: "Norte" | "Sul" | "Leste" | "Oeste" */
-    public ?string $solar_position = null;
+    protected string $solar_position;
 
-    public ?float $condominium_value = null;
+    protected float $condominium_value;
 
     /** @var float $urban_land_tax "IPTU" value */
-    public ?float $urban_land_tax = null;
+    protected float $urban_land_tax;
 
-    public ?float $rental_price = null;
+    protected float $rental_price;
+
+    /**
+     * @return string
+     */
+    public function getId(): ?string
+    {
+        return $this->id ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): ?string
+    {
+        return $this->type ?? null;
+    }
+
+    /**
+     * @return float
+     */
+    public function getOriginalPrice(): ?float
+    {
+        return $this->original_price ?? null;
+    }
+
+    /**
+     * @return float
+     */
+    public function getDiscountPrice(): ?float
+    {
+        return $this->discount_price ?? null;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrivateArea(): ?float
+    {
+        return $this->private_area ?? null;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTotalArea(): ?float
+    {
+        return $this->total_area ?? null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBedrooms(): ?int
+    {
+        return $this->bedrooms ?? null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBathrooms(): ?int
+    {
+        return $this->bathrooms ?? null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSuites(): ?int
+    {
+        return $this->suites ?? null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getParking(): ?int
+    {
+        return $this->parking ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSolarPosition(): ?string
+    {
+        return $this->solar_position ?? null;
+    }
+
+    /**
+     * @return float
+     */
+    public function getCondominiumValue(): ?float
+    {
+        return $this->condominium_value ?? null;
+    }
+
+    /**
+     * @return float
+     */
+    public function getUrbanLandTax(): ?float
+    {
+        return $this->urban_land_tax ?? null;
+    }
+
+    /**
+     * @return float
+     */
+    public function getRentalPrice(): ?float
+    {
+        return $this->rental_price ?? null;
+    }
 }

@@ -10,8 +10,24 @@ class BuildingListItem
     use BuildingTrait;
 
     /** @var string $orulo_url building URL on Orulo's page */
-    public string $orulo_url;
+    protected string $orulo_url;
 
     /** @var Opportunity $opportunity building's available opportunities */
-    public Opportunity $opportunity;
+    protected Opportunity $opportunity;
+
+    /**
+     * @return string
+     */
+    public function getOruloUrl(): ?string
+    {
+        return $this->orulo_url ?? null;
+    }
+
+    /**
+     * @return Opportunity
+     */
+    public function getOpportunity(): ?Opportunity
+    {
+        return $this->opportunity ?? null;
+    }
 }

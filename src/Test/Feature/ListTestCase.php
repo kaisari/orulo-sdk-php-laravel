@@ -44,8 +44,8 @@ class ListTestCase extends TestCase
         $response = $this->makeAndAssert(BuildingTypeListRequest::class);
         $this->assertNotEmpty($response->getCommercial());
         $this->assertNotEmpty($response->getResidential());
-        $this->assertNotEmpty($response->getCommercial()->commercial_building);
-        $this->assertNotEmpty($response->getResidential()->land_or_residential_lots);
+        $this->assertNotEmpty($response->getCommercial()->getCommercialBuilding());
+        $this->assertNotEmpty($response->getResidential()->getLandOrResidentialLots());
     }
 
     public function testPartnerList()

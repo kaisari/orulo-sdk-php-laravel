@@ -8,15 +8,63 @@ class Commercial
 {
     use Serializable;
 
-    public string $commercial_building;
+    protected string $commercial_building;
 
-    public string $warehouse;
+    protected string $warehouse;
 
-    public string $shops;
+    protected string $shops;
 
-    public string $land_or_commercial_lots;
+    protected string $land_or_commercial_lots;
 
-    public string $commercial_room;
+    protected string $commercial_room;
 
-    public string $commercial_room_with_external_area;
+    protected string $commercial_room_with_external_area;
+
+    /**
+     * @return string
+     */
+    public function getCommercialBuilding(): ?string
+    {
+        return $this->commercial_building ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWarehouse(): ?string
+    {
+        return $this->warehouse ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShops(): ?string
+    {
+        return $this->shops ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLandOrCommercialLots(): ?string
+    {
+        return $this->land_or_commercial_lots ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCommercialRoom(): ?string
+    {
+        return $this->commercial_room ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCommercialRoomWithExternalArea(): ?string
+    {
+        return $this->commercial_room_with_external_area ?? null;
+    }
 }

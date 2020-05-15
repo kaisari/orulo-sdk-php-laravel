@@ -9,14 +9,46 @@ class Opportunity
     use Serializable;
 
     /** @var bool $broker offer indication for brokers */
-    public bool $broker;
+    protected bool $broker;
 
     /** @var bool $client offer indication for clients */
-    public bool $client;
+    protected bool $client;
 
     /** @var float $client_max_discount maximum percentage of discount in the building's units */
-    public float $client_max_discount;
+    protected float $client_max_discount;
 
     /** @var bool $exchange_units indicates that the building has a 'dação' */
-    public bool $exchange_units;
+    protected bool $exchange_units;
+
+    /**
+     * @return bool
+     */
+    public function isBroker(): ?bool
+    {
+        return $this->broker ?? null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isClient(): ?bool
+    {
+        return $this->client ?? null;
+    }
+
+    /**
+     * @return float
+     */
+    public function getClientMaxDiscount(): ?float
+    {
+        return $this->client_max_discount ?? null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExchangeUnits(): ?bool
+    {
+        return $this->exchange_units ?? null;
+    }
 }

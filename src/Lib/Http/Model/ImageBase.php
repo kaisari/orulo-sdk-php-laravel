@@ -8,7 +8,23 @@ class ImageBase
 {
     use Serializable;
 
-    public string $id;
+    protected string $id;
 
-    public string $description;
+    protected string $description;
+
+    /**
+     * @return string
+     */
+    public function getId(): ?string
+    {
+        return $this->id ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description ?? null;
+    }
 }

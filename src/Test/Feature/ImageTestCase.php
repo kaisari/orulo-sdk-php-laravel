@@ -14,8 +14,16 @@ class ImageTestCase extends TestCase
         /** @var ImageListResponse $response */
         $response = $this->makeAndAssert($request);
 
-        $this->assertNotEmpty($response->getImages());
-        $this->assertNotEmpty($response->getImages()[0]->_1024x1024);
+        $images = $response->getImages();
+        $this->assertNotEmpty($images);
+
+        $image = $images[0];
+        $this->assertNotEmpty($image);
+        $this->assertNotEmpty($image->get1024x1024());
+        $this->assertNotEmpty($image->getDescription());
+        $this->assertNotEmpty($image->getId());
+        $this->assertNotEmpty($image->get520x280());
+        $this->assertNull($image->get200x140());
         $this->assertEquals(ImageListResponse::class, get_class($response));
     }
 }

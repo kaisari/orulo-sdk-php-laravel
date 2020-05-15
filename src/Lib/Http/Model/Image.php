@@ -4,9 +4,33 @@ namespace Jetimob\Orulo\Lib\Http\Model;
 
 class Image extends ImageBase
 {
-    public ?string $_200x140 = null;
+    protected string $_200x140;
 
-    public ?string $_520x280 = null;
+    protected string $_520x280;
 
-    public ?string $_1024x1024 = null;
+    protected string $_1024x1024;
+
+    /**
+     * @return string
+     */
+    public function get200x140(): ?string
+    {
+        return $this->_200x140 ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function get520x280(): ?string
+    {
+        return $this->_520x280 ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function get1024x1024(): ?string
+    {
+        return $this->_1024x1024 ?? null;
+    }
 }

@@ -8,13 +8,45 @@ class PartnerSummary
 {
     use Serializable;
 
-    public string $id;
+    protected string $id;
 
-    public string $name;
+    protected string $name;
 
     /** @var string $updated_at <date-time> DD/MM/YYYY HH:MM:SS */
-    public string $updated_at;
+    protected string $updated_at;
 
     /** @var string $logo url */
-    public string $logo;
+    protected string $logo;
+
+    /**
+     * @return string
+     */
+    public function getId(): ?string
+    {
+        return $this->id ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): ?string
+    {
+        return $this->name ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUpdatedAt(): ?string
+    {
+        return $this->updated_at ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogo(): ?string
+    {
+        return $this->logo ?? null;
+    }
 }

@@ -8,7 +8,23 @@ class Developer
 {
     use Serializable;
 
-    public string $id;
+    protected string $id;
 
-    public string $name;
+    protected string $name;
+
+    /**
+     * @return string
+     */
+    public function getId(): ?string
+    {
+        return $this->id ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): ?string
+    {
+        return $this->name ?? null;
+    }
 }

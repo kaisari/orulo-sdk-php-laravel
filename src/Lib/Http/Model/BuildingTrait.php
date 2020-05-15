@@ -5,59 +5,219 @@ namespace Jetimob\Orulo\Lib\Http\Model;
 trait BuildingTrait
 {
     /** @var string $id building id */
-    public string $id;
+    protected string $id;
 
     /** @var string $name building name */
-    public string $name;
+    protected string $name;
 
     /** @var Developer $developer 'incorporadora' */
-    public Developer $developer;
+    protected Developer $developer;
 
-    public Address $address;
+    protected Address $address;
 
     /** @var float $min_price minimum value of a building's unit */
-    public float $min_price;
+    protected float $min_price;
 
-    public float $price_per_private_square_meter;
+    protected float $price_per_private_square_meter;
 
     /** @var int $min_bathrooms minimum number of bathrooms of all available units */
-    public int $min_bathrooms;
+    protected int $min_bathrooms;
 
     /** @var int $max_bathrooms maximum number of bathrooms of all available units */
-    public int $max_bathrooms;
+    protected int $max_bathrooms;
 
     /** @var int $min_area lowest area value among all available units */
-    public int $min_area;
+    protected int $min_area;
 
     /** @var int highest area value among all available units */
-    public int $max_area;
+    protected int $max_area;
 
     /** @var int $min_bedrooms minimum number of bedrooms among all available units */
-    public int $min_bedrooms;
+    protected int $min_bedrooms;
 
     /** @var int $max_bedrooms maximum number of bedrooms among all available units */
-    public int $max_bedrooms;
+    protected int $max_bedrooms;
 
     /** @var int $min_suites minimum number of suites among all available units */
-    public int $min_suites;
+    protected int $min_suites;
 
     /** @var int $max_suites maximum number of suites among all available units */
-    public int $max_suites;
+    protected int $max_suites;
 
     /** @var int $min_parking minimum number of parking spots among all available units */
-    public int $min_parking;
+    protected int $min_parking;
 
     /** @var int $max_parking maximum number of parking spots among all available units */
-    public int $max_parking;
+    protected int $max_parking;
 
     /** @var string $description property description */
-    public string $description;
+    protected string $description;
 
     /** @var string $finality Enum: Comercial | Misto | Residencial */
-    public string $finality;
+    protected string $finality;
 
-    public DefaultImage $default_image;
+    protected DefaultImage $default_image;
 
     /** @var string $updated_at <date-time> (DD/MM/AAAA HH:MM:SS) of the building's last update */
-    public string $updated_at;
+    protected string $updated_at;
+
+    /**
+     * @return string
+     */
+    public function getId(): ?string
+    {
+        return $this->id ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): ?string
+    {
+        return $this->name ?? null;
+    }
+
+    /**
+     * @return Developer
+     */
+    public function getDeveloper(): ?Developer
+    {
+        return $this->developer ?? null;
+    }
+
+    /**
+     * @return Address
+     */
+    public function getAddress(): ?Address
+    {
+        return $this->address ?? null;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMinPrice(): ?float
+    {
+        return $this->min_price ?? null;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPricePerPrivateSquareMeter(): ?float
+    {
+        return $this->price_per_private_square_meter ?? null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMinBathrooms(): ?int
+    {
+        return $this->min_bathrooms ?? null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxBathrooms(): ?int
+    {
+        return $this->max_bathrooms ?? null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMinArea(): ?int
+    {
+        return $this->min_area ?? null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxArea(): ?int
+    {
+        return $this->max_area ?? null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMinBedrooms(): ?int
+    {
+        return $this->min_bedrooms ?? null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxBedrooms(): ?int
+    {
+        return $this->max_bedrooms ?? null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMinSuites(): ?int
+    {
+        return $this->min_suites ?? null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxSuites(): ?int
+    {
+        return $this->max_suites ?? null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMinParking(): ?int
+    {
+        return $this->min_parking ?? null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxParking(): ?int
+    {
+        return $this->max_parking ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFinality(): ?string
+    {
+        return $this->finality ?? null;
+    }
+
+    /**
+     * @return DefaultImage
+     */
+    public function getDefaultImage(): ?DefaultImage
+    {
+        return $this->default_image ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUpdatedAt(): ?string
+    {
+        return $this->updated_at ?? null;
+    }
 }
