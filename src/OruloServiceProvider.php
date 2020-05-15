@@ -3,6 +3,7 @@
 namespace Jetimob\Orulo;
 
 use Illuminate\Support\ServiceProvider;
+use Jetimob\Orulo\Console\ClearCache;
 use Jetimob\Orulo\Console\InstallOruloPackage;
 
 class OruloServiceProvider extends ServiceProvider
@@ -33,6 +34,7 @@ class OruloServiceProvider extends ServiceProvider
 
             $this->commands([
                 InstallOruloPackage::class,
+                ClearCache::class,
             ]);
         }
     }
