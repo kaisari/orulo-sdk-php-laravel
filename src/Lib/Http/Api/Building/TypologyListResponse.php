@@ -18,4 +18,14 @@ class TypologyListResponse extends Response
     {
         $this->typologies = $this->deserializeDataArray('typologies', Typology::class);
     }
+
+    /**
+     * @return array
+     */
+    public function getTypologies(): array
+    {
+        return $this->typologies;
+    }
+
+
 }
