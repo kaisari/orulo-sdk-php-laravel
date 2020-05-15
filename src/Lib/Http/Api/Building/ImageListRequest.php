@@ -13,8 +13,12 @@ class ImageListRequest extends GetWClientAuth
 {
     protected string $buildingId;
 
-    /** @var string[] $dimensions Enum: "200x140" | "520x280" | "1024x1024" */
-    protected array $dimensions;
+    /** @var string[] $dimentionsArr Enum: "200x140" | "520x280" | "1024x1024" */
+    protected array $dimensionsArr;
+
+    protected string $dimensions;
+
+    protected array $bodySchema = ['dimensions'];
 
     /**
      * ImageListRequest constructor.
@@ -25,7 +29,8 @@ class ImageListRequest extends GetWClientAuth
     {
         parent::__construct();
         $this->buildingId = $buildingBuildingId;
-        $this->dimensions = $dimensions;
+        $this->dimensionsArr = $dimensions;
+        $this->dimensions = implode(',', $dimensions);
     }
 
     public function urn(): string
