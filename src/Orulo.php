@@ -343,11 +343,11 @@ MSG,
      */
     private function isAccessTokenValid(): bool
     {
-        if (is_null($this->authorizationToken) || $this->authorizationToken->failed()) {
+        if (is_null($this->authorizationToken)) {
             return false;
         }
 
-        return ($this->authorizationToken->getTimestamp() + $this->authorizationToken->getExpiresIn()) > time();
+        return $this->authorizationToken->isValid();
     }
 
     /**

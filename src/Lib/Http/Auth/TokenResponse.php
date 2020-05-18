@@ -89,6 +89,17 @@ class TokenResponse extends Response implements Serializable
     }
 
     /**
+     * Returns true if this instance contains a valid access_token.
+     * Note that if the access token was revoked, the request will return a 401 code.
+     *
+     * @return bool
+     */
+    public function isValid(): bool
+    {
+        return $this->succeeded() && (($this->getTimestamp() + $this->getExpiresIn()) > time());
+    }
+
+    /**
      * @inheritDoc
      */
     public function serialize(): string
