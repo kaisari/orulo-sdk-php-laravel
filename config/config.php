@@ -15,10 +15,10 @@ return [
         'timeout' => 0.0,
 
         // Set this to true if you want to debug the request/response.
-        'debug' => true,
+        'debug' => false,
     ],
 
     // Defines if the logging should be enabled or not. If set to true, every the log entry will be sent to Laravel's
     // default logging output.
-    'logging' => false,
+    'logging' => true,
 ];
