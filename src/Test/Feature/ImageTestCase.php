@@ -20,7 +20,7 @@ class ImageTestCase extends TestCase
         $image = $images[0];
         $this->assertNotEmpty($image);
         $this->assertNotEmpty($image->get1024x1024());
-        $this->assertNotEmpty($image->getDescription());
+        $this->assertNotNull($image->getDescription());
         $this->assertNotEmpty($image->getId());
         $this->assertNotEmpty($image->get520x280());
         $this->assertNull($image->get200x140());
