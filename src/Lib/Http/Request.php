@@ -87,11 +87,16 @@ abstract class Request
         $matches = [];
         $urn = $this->urn();
 
-        if (preg_match('/{([[:alpha:]]+?)}/', $urn, $matches)) {
-            if (count($matches) > 2) {
-                Log::warning('only one urn property mapping available at the current time');
+        if (!preg_match_all('/{([[:alpha:]]+?)}/', $urn, $matches)) {
+            return $urn;
+        }
+
+        for ($i = 0; $i < count($matches[1]); $i++) {
+            $propertyName = $matches[1][$i];
+
+            if (isset($this->{$propertyName}) && !empty($propertyValue = $this->{$propertyName})) {
+                $urn = preg_replace("/{$matches[0][$i]}/", $propertyValue, $urn);
             }
-            $urn = preg_replace('/{[[:alpha:]]+?}/', $this->{$matches[1]}, $urn);
         }
 
         return $urn;
