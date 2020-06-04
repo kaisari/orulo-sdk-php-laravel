@@ -7,10 +7,10 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\RequestOptions;
-use Illuminate\Support\Facades\Cache;
 use Jetimob\Orulo\Exception\ConfigurationException;
 use Jetimob\Orulo\Exception\EmptyResponseClassException;
 use Jetimob\Orulo\Exception\OruloException;
+use Jetimob\Orulo\Facade\Cache;
 use Jetimob\Orulo\Lib\Http\Api\ErrorResponse;
 use Jetimob\Orulo\Lib\Http\Auth\AuthType;
 use Jetimob\Orulo\Lib\Http\Auth\TokenRequest;
@@ -238,10 +238,12 @@ MSG,
      */
     private function retrieveAccessToken(string $clientId, string $clientSecret, Request $request): Response
     {
-        $cached = Cache::get($this->getCacheKey($clientId, $request->authType()));
+        $serialized = Cache::get($this->getCacheKey($clientId, $request->authType()));
 
-        if (!is_null($cached)) {
-            /** @var TokenResponse $cached */
+        if (!is_null($serialized)) {
+            $cached = new TokenResponse();
+            $cached->unserialize($serialized);
+
             if ($cached->getAuthType() !== $request->authType()) {
                 throw new WrongAuthTypeException($request->authType(), $cached->getAuthType());
             }
@@ -291,7 +293,12 @@ MSG,
         }
 
         $response->setAuthType($authType);
-        Cache::put($this->getCacheKey($clientId, $authType), $response, now()->addSeconds($response->getExpiresIn()));
+        Cache::set(
+            $this->getCacheKey($clientId, $authType),
+            $response->serialize(),
+            'EX', // EX seconds -- Set the specified expire time, in seconds.
+            now()->addSeconds($response->getExpiresIn())->unix(),
+        );
         return $response;
     }
 
@@ -329,7 +336,7 @@ MSG,
         $this->authorizationToken = $token;
 
         if (!$this->isAccessTokenValid()) {
-            Cache::forget($this->getCacheKey($clientId, $token->getAuthType()));
+            Cache::del($this->getCacheKey($clientId, $token->getAuthType()));
             return $this->getAccessToken($clientId, $clientSecret, $request);
         }
 

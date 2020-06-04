@@ -12,9 +12,13 @@ class AuthTestCase extends TestCase
     public function testAuth()
     {
         /** @var TokenResponse $response */
-        $response = Orulo::request(new TokenRequest(
+        $response = Orulo::request(
+            new TokenRequest(
+                Orulo::getConfig('client_id'),
+                Orulo::getConfig('client_secret')
+            ),
             Orulo::getConfig('client_id'),
-            Orulo::getConfig('client_secret'))
+            Orulo::getConfig('client_secret')
         );
 
         $this->assertResponse($response);

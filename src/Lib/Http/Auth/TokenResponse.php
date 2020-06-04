@@ -141,7 +141,8 @@ class TokenResponse extends Response implements Serializable
         string $token_type,
         int $expires_in,
         string $scope,
-        int $created_at
+        int $created_at,
+        int $type
     ): self
     {
         $instance = new self();
@@ -150,6 +151,7 @@ class TokenResponse extends Response implements Serializable
         $instance->expires_in = $expires_in;
         $instance->scope = $scope;
         $instance->created_at = $created_at;
+        $instance->authType = $type;
 
         return $instance;
     }

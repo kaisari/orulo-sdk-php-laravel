@@ -21,4 +21,7 @@ return [
     // Defines if the logging should be enabled or not. If set to true, every the log entry will be sent to Laravel's
     // default logging output.
     'logging' => true,
+
+    // sets the Redis connection used by this package to cache the access tokens
+    'redis_connection' => null,
 ];
