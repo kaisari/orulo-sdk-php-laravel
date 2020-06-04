@@ -238,12 +238,9 @@ MSG,
      */
     private function retrieveAccessToken(string $clientId, string $clientSecret, Request $request): Response
     {
-        $serialized = Cache::get($this->getCacheKey($clientId, $request->authType()));
+        $cached = $this->retrieveCached($clientId, $request->authType());
 
-        if (!is_null($serialized)) {
-            $cached = new TokenResponse();
-            $cached->unserialize($serialized);
-
+        if (!is_null($cached)) {
             if ($cached->getAuthType() !== $request->authType()) {
                 throw new WrongAuthTypeException($request->authType(), $cached->getAuthType());
             }
@@ -382,5 +379,27 @@ MSG,
     {
         $this->authorizationToken = $authorizationToken;
         return $this;
+    }
+
+    /**
+     * Returns an instance of a TokenResponse stored in the cache.
+     * Null if there is nothing cached.
+     *
+     * @param string $clientId
+     * @param int $authType
+     * @return TokenResponse|null
+     */
+    public function retrieveCached(string $clientId, int $authType): ?TokenResponse
+    {
+        $serialized = Cache::get($this->getCacheKey($clientId, $authType));
+
+        if (empty($serialized)) {
+            return null;
+        }
+
+        $cached = new TokenResponse();
+        $cached->unserialize($serialized);
+
+        return $cached;
     }
 }
