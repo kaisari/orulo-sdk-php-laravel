@@ -153,7 +153,7 @@ MSG,
     {
         return sprintf(
             'https://www.orulo.com.br/oauth/authorize?client_id=%s&redirect_uri=%s&response_type=code',
-            $this->getConfig($clientId),
+            $clientId,
             $this->getConfig('redirect_uri'),
         );
     }
