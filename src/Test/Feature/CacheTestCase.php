@@ -76,7 +76,7 @@ class CacheTestCase extends TestCase
         $this->assertNotEmpty($response->getStates());
 
         $serializedTokenResponse = Cache::get(Orulo::getCacheKey(
-            Orulo::getConfig('client_id'),
+            $this->getClientId(),
             AuthType::ORULO_CLIENT_AUTH,
         ));
 
@@ -84,5 +84,13 @@ class CacheTestCase extends TestCase
         $tokenResponse = new TokenResponse();
         $tokenResponse->unserialize($serializedTokenResponse);
         $this->assertSame(true, $tokenResponse->isValid());
+    }
+
+    /** @test */
+    public function should_not_have_cached_key()
+    {
+        Cache::del(Orulo::getCacheKey($this->getClientId(), AuthType::ORULO_CLIENT_AUTH));
+        $cached = Orulo::retrieveCached($this->getClientId(), AuthType::ORULO_CLIENT_AUTH);
+        $this->assertNull($cached);
     }
 }

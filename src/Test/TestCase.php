@@ -55,8 +55,8 @@ class TestCase extends \Orchestra\Testbench\TestCase
     protected function makeBaseRequest($request)
     {
         return Orulo::/*useAuthorizationToken($this->makeToken())->*/request(
-            $request, Orulo::getConfig('client_id'),
-            Orulo::getConfig('client_secret'),
+            $request, $this->getClientId(),
+            $this->getSecret(),
         );
     }
 
@@ -70,5 +70,15 @@ class TestCase extends \Orchestra\Testbench\TestCase
         $this->assertResponse($response);
 
         return $response;
+    }
+
+    protected function getClientId(): string
+    {
+        return '';
+    }
+
+    protected function getSecret(): string
+    {
+        return '';
     }
 }

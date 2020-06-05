@@ -12,8 +12,8 @@ class ConfigTestCase extends TestCase
         $guzzleConfig = Orulo::getConfig('guzzle');
         $this->assertIsArray($guzzleConfig);
         $this->assertContains('base_uri', $guzzleConfig);
-        $this->assertNotNull(Orulo::getConfig('client_id'));
-        $this->assertNotNull(Orulo::getConfig('client_secret'));
+        $this->assertNotNull($this->getClientId());
+        $this->assertNotNull($this->getSecret());
         $this->assertEquals('https://www.orulo.com.br/api/v2/', $guzzleConfig['base_uri']);
     }
 }

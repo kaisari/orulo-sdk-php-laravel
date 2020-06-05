@@ -1,9 +1,7 @@
 <?php
 
 return [
-    'client_id' => env('ORULO_CLIENT_ID', null),
-    'client_secret' => env('ORULO_CLIENT_SECRET', null),
-    'redirect_uri' => null,
+    'redirect_uri' => env('ORULO_REDIRECT_URI', null),
 
     'guzzle' => [
         'base_uri' => 'https://www.orulo.com.br/api/v2/',

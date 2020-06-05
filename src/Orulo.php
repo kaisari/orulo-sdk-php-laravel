@@ -28,8 +28,7 @@ use Jetimob\Orulo\Util\Log;
 class Orulo
 {
     private const CONFIG_FILE_REQUIRED_KEYS = [
-        'client_id',
-        'client_secret',
+        'redirect_uri',
     ];
 
     private array $config;
@@ -145,15 +144,16 @@ MSG,
      * When the end user is redirected to the redirect_uri, there will be a query param named 'code' that will be used
      * to obtain an access_code. This can be made manually or through the 'handleAuthorizationResponse' method.
      *
+     * @param string $clientId
      * @return string
      * @see http://api.orulo.com.br.s3-website-us-east-1.amazonaws.com/#section/Autenticacao-e-Autorizacao/oruloEndUserAuth
      * @noinspection PhpUnused
      */
-    public function makeAuthorizationUrl(): string
+    public function makeAuthorizationUrl(string $clientId): string
     {
         return sprintf(
             'https://www.orulo.com.br/oauth/authorize?client_id=%s&redirect_uri=%s&response_type=code',
-            $this->getConfig('client_id'),
+            $this->getConfig($clientId),
             $this->getConfig('redirect_uri'),
         );
     }
