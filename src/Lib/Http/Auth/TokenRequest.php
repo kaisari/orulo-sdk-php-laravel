@@ -2,6 +2,7 @@
 
 namespace Jetimob\Orulo\Lib\Http\Auth;
 
+use Jetimob\Orulo\Facade\Orulo;
 use Jetimob\Orulo\Lib\Http\BodyType;
 use Jetimob\Orulo\Lib\Http\Method;
 use Jetimob\Orulo\Lib\Http\Request;
@@ -19,7 +20,9 @@ class TokenRequest extends Request
 
     protected ?string $code;
 
-    protected string $grant_type = 'client_credentials';
+    protected string $redirect_uri;
+
+    protected string $grant_type;
 
     protected array $bodySchema = ['client_id', 'client_secret', 'grant_type', 'code'];
 
@@ -38,6 +41,8 @@ class TokenRequest extends Request
         $this->client_id = $clientId;
         $this->client_secret = $clientSecret;
         $this->code = $code;
+        $this->redirect_uri = Orulo::getConfig('redirect_uri');
+        $this->grant_type = is_null($code) ? 'client_credentials' : 'authorization_code';
     }
 
     /**
@@ -59,5 +64,14 @@ class TokenRequest extends Request
     public function authType(): ?int
     {
         return null;
+    }
+
+    public function getBodySchema(): array
+    {
+        if (is_null($this->code)) {
+            return $this->bodySchema;
+        }
+
+        return array_merge($this->bodySchema, ['redirect_uri']);
     }
 }

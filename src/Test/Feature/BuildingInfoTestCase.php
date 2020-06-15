@@ -11,8 +11,10 @@ class BuildingInfoTestCase extends TestCase
     public function testInfoRequest()
     {
         /** @var BuildingInfoResponse $response */
-        $response = $this->makeAndAssert(new BuildingInfoRequest('7391'));
+        $response = $this->makeAndAssert(new BuildingInfoRequest(''));
         $this->assertNotEmpty($response->getTypologies());
         $this->assertNotNull($response->getDeveloper());
+        $this->assertNotEmpty($response->getFloorPlans());
+        $this->assertNotEmpty($response->getCommercialContacts());
     }
 }
