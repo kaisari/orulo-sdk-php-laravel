@@ -23,6 +23,46 @@ class CommercialContactResponse extends Response
 
     protected string $webcontact;
 
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getEmails(): array
+    {
+        return $this->emails;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getPhones(): array
+    {
+        return $this->phones;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWebcontact(): string
+    {
+        return $this->webcontact;
+    }
+
     public function initComplexObjects()
     {
         $this->emails = $this->data->emails ?? [];
