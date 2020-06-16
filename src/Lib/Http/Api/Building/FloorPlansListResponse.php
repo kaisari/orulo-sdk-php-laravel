@@ -17,6 +17,14 @@ class FloorPlansListResponse extends Response
 
     public function initComplexObjects()
     {
-        $this->deserializeDataArray('floor_plans', FloorPlan::class);
+        $this->floor_plans = $this->deserializeDataArray('floor_plans', FloorPlan::class);
+    }
+
+    /**
+     * @return FloorPlan[]
+     */
+    public function getFloorPlans(): array
+    {
+        return $this->floor_plans;
     }
 }

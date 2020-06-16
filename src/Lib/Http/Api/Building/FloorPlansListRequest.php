@@ -16,6 +16,8 @@ class FloorPlansListRequest extends GetWClientAuth
     /** @var string[] $dimensions Enum: "200x140" | "520x280" | "1024x1024" */
     protected array $dimensions;
 
+    protected array $bodySchema = ['dimensions'];
+
     /**
      * FloorPlansListRequest constructor.
      * @param string $buildingId

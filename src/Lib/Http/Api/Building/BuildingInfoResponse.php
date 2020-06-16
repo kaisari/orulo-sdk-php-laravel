@@ -103,59 +103,59 @@ class BuildingInfoResponse extends Response
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCreatedAt(): string
+    public function getCreatedAt(): ?string
     {
-        return $this->created_at;
+        return $this->created_at ?? null;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStatus(): string
+    public function getStatus(): ?string
     {
-        return $this->status;
+        return $this->status ?? null;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getOpeningDate(): string
+    public function getOpeningDate(): ?string
     {
-        return $this->opening_date;
+        return $this->opening_date ?? null;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLaunchDate(): string
+    public function getLaunchDate(): ?string
     {
-        return $this->launch_date;
+        return $this->launch_date ?? null;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getType(): string
+    public function getType(): ?string
     {
-        return $this->type;
+        return $this->type ?? null;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getStock(): int
+    public function getStock(): ?int
     {
-        return $this->stock;
+        return $this->stock ?? null;
     }
 
     /**
-     * @return OpportunityWClientBroker
+     * @return OpportunityWClientBroker|null
      */
-    public function getOpportunity(): OpportunityWClientBroker
+    public function getOpportunity(): ?OpportunityWClientBroker
     {
-        return $this->opportunity;
+        return $this->opportunity ?? null;
     }
 
     /**
@@ -199,19 +199,19 @@ class BuildingInfoResponse extends Response
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getWebpage(): string
+    public function getWebpage(): ?string
     {
-        return $this->webpage;
+        return $this->webpage ?? null;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getVirtualTour(): string
+    public function getVirtualTour(): ?string
     {
-        return $this->virtual_tour;
+        return $this->virtual_tour ?? null;
     }
 
     /**
@@ -223,202 +223,202 @@ class BuildingInfoResponse extends Response
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getTotalArea(): float
+    public function getTotalArea(): ?float
     {
-        return $this->total_area;
+        return $this->total_area ?? null;
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getFloorArea(): float
+    public function getFloorArea(): ?float
     {
-        return $this->floor_area;
+        return $this->floor_area ?? null;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getAptsPerFloor(): int
+    public function getAptsPerFloor(): ?int
     {
-        return $this->apts_per_floor;
+        return $this->apts_per_floor ?? null;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getNumberOfFloors(): int
+    public function getNumberOfFloors(): ?int
     {
-        return $this->number_of_floors;
+        return $this->number_of_floors ?? null;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getTotalUnits(): int
+    public function getTotalUnits(): ?int
     {
-        return $this->total_units;
+        return $this->total_units ?? null;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getId(): string
+    public function getId(): ?string
     {
-        return $this->id;
+        return $this->id ?? null;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getName(): string
+    public function getName(): ?string
     {
-        return $this->name;
+        return $this->name ?? null;
     }
 
     /**
-     * @return Developer
+     * @return Developer|null
      */
-    public function getDeveloper(): Developer
+    public function getDeveloper(): ?Developer
     {
-        return $this->developer;
+        return $this->developer ?? null;
     }
 
     /**
-     * @return Address
+     * @return Address|null
      */
-    public function getAddress(): Address
+    public function getAddress(): ?Address
     {
-        return $this->address;
+        return $this->address ?? null;
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getMinPrice(): float
+    public function getMinPrice(): ?float
     {
-        return $this->min_price;
+        return $this->min_price ?? null;
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getPricePerPrivateSquareMeter(): float
+    public function getPricePerPrivateSquareMeter(): ?float
     {
-        return $this->price_per_private_square_meter;
+        return $this->price_per_private_square_meter ?? null;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMinBathrooms(): int
+    public function getMinBathrooms(): ?int
     {
-        return $this->min_bathrooms;
+        return $this->min_bathrooms ?? null;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMaxBathrooms(): int
+    public function getMaxBathrooms(): ?int
     {
-        return $this->max_bathrooms;
+        return $this->max_bathrooms ?? null;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMinArea(): int
+    public function getMinArea(): ?int
     {
-        return $this->min_area;
+        return $this->min_area ?? null;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMaxArea(): int
+    public function getMaxArea(): ?int
     {
-        return $this->max_area;
+        return $this->max_area ?? null;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMinBedrooms(): int
+    public function getMinBedrooms(): ?int
     {
-        return $this->min_bedrooms;
+        return $this->min_bedrooms ?? null;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMaxBedrooms(): int
+    public function getMaxBedrooms(): ?int
     {
-        return $this->max_bedrooms;
+        return $this->max_bedrooms ?? null;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMinSuites(): int
+    public function getMinSuites(): ?int
     {
-        return $this->min_suites;
+        return $this->min_suites ?? null;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMaxSuites(): int
+    public function getMaxSuites(): ?int
     {
-        return $this->max_suites;
+        return $this->max_suites ?? null;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMinParking(): int
+    public function getMinParking(): ?int
     {
-        return $this->min_parking;
+        return $this->min_parking ?? null;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMaxParking(): int
+    public function getMaxParking(): ?int
     {
-        return $this->max_parking;
+        return $this->max_parking ?? null;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
-        return $this->description;
+        return $this->description ?? null;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getFinality(): string
+    public function getFinality(): ?string
     {
-        return $this->finality;
+        return $this->finality ?? null;
     }
 
     /**
-     * @return DefaultImage
+     * @return DefaultImage|null
      */
-    public function getDefaultImage(): DefaultImage
+    public function getDefaultImage(): ?DefaultImage
     {
-        return $this->default_image;
+        return $this->default_image ?? null;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getUpdatedAt(): string
+    public function getUpdatedAt(): ?string
     {
-        return $this->updated_at;
+        return $this->updated_at ?? null;
     }
 }
