@@ -37,6 +37,8 @@ class Orulo
 
     private ?TokenResponse $authorizationToken = null;
 
+    private ?TokenResponse $testAuthorizationToken = null;
+
     private Client $apiClient;
 
     /**
@@ -316,11 +318,13 @@ MSG,
      */
     private function getAccessToken(string $clientId, string $clientSecret, Request $request): string
     {
+        // remove local caching (making requests with different clientIds were using the same accessToken as it was
+        // locally cached) and use only the one for testing.
         if (
-            !is_null($this->authorizationToken)
-            && $this->authorizationToken->getAuthType() === $request->authType()
+            !is_null($this->testAuthorizationToken)
+            && $this->testAuthorizationToken->getAuthType() === $request->authType()
         ) {
-            return $this->authorizationToken->getAccessToken();
+            return $this->testAuthorizationToken->getAccessToken();
         }
 
         /** @var TokenResponse $token */
@@ -377,7 +381,7 @@ MSG,
      */
     public function useAuthorizationToken(TokenResponse $authorizationToken): self
     {
-        $this->authorizationToken = $authorizationToken;
+        $this->testAuthorizationToken = $authorizationToken;
         return $this;
     }
 
